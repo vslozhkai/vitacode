@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff6f74"/>
+      <stop offset="0.5" stop-color="#ffb34f"/>
+      <stop offset="1" stop-color="#7e69ff"/>
+    </linearGradient>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="4"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="table" tableValues="0 0.22"/></feComponentTransfer>
+      <feBlend mode="screen" in2="SourceGraphic"/>
+    </filter>
+  </defs>
+  <rect x="8" y="8" width="240" height="240" rx="52" fill="#121327"/>
+  <path d="M72 40h49c38 0 57 17 57 45 0 14-7 26-18 33 16 7 26 21 26 39 0 36-27 59-69 59H72V40zm36 30v35h9c18 0 26-6 26-18 0-11-8-17-24-17h-11zm0 63v47h16c18 0 28-9 28-24 0-14-9-23-28-23h-16z" fill="url(#g)" filter="url(#grain)"/>
+  <g fill="#f3f2ff" opacity="0.9">
+    <rect x="150" y="56" width="8" height="20" rx="4" transform="rotate(18 154 66)"/>
+    <rect x="182" y="72" width="8" height="20" rx="4" transform="rotate(-26 186 82)"/>
+    <rect x="136" y="186" width="8" height="20" rx="4" transform="rotate(-8 140 196)"/>
+    <rect x="172" y="170" width="8" height="20" rx="4" transform="rotate(24 176 180)"/>
+    <rect x="101" y="87" width="8" height="20" rx="4" transform="rotate(-36 105 97)"/>
+    <rect x="94" y="151" width="8" height="20" rx="4" transform="rotate(22 98 161)"/>
+  </g>
+</svg>

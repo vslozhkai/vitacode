@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0f1021" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Витакод" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="icons/icon-192.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icons/icon-192.svg" />
+    <title>Витакод</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar reveal">
+        <div class="logo-wrap">
+          <img src="logos/vitacode-b.svg" alt="Витакод" class="logo" />
+          <div>
+            <p class="brand">Витакод</p>
+            <p class="tag">Питание • БАДы • Тренировки</p>
+          </div>
+        </div>
+      </header>
+
+      <main class="app">
+        <section class="panel reveal">
+          <h2>Профиль</h2>
+          <form id="profile-form" class="grid-form">
+            <label>Пол<select id="sex-input"><option value="female">Женский</option><option value="male">Мужской</option></select></label>
+            <label>Возраст<input id="age-input" type="number" min="18" max="99" value="30" required /></label>
+            <label>Рост (см)<input id="height-input" type="number" min="130" max="230" value="170" required /></label>
+            <label>Вес (кг)<input id="weight-input" type="number" min="35" max="250" value="70" required /></label>
+            <label>Цель<select id="goal-input"><option value="maintain">Поддержание</option><option value="lose">Снижение веса</option><option value="gain">Набор</option></select></label>
+            <label>Активность<select id="activity-input"><option value="1.2">Низкая</option><option value="1.375">Легкая</option><option value="1.55">Средняя</option><option value="1.725">Высокая</option></select></label>
+            <button type="submit" class="btn">Сохранить</button>
+          </form>
+        </section>
+
+        <section class="panel reveal">
+          <h2>База продуктов и блюд</h2>
+          <div class="inline-controls">
+            <input id="food-search" type="text" placeholder="Поиск по базе (например: гречка, борщ, лосось)" />
+            <button id="food-search-btn" type="button" class="btn ghost">Найти</button>
+          </div>
+          <p class="muted">Локальная база Витакод: категории продуктов + готовые блюда. Можно дополнять вручную.</p>
+          <ul id="food-search-results" class="list mini"></ul>
+        </section>
+
+        <section class="panel reveal">
+          <h2>Добавить прием пищи</h2>
+          <form id="entry-form" class="grid-form">
+            <label>Продукт<select id="food-select" required></select></label>
+            <label>Граммы<input id="grams-input" type="number" min="1" max="2000" value="100" required /></label>
+            <label>Прием<select id="meal-select"><option value="Завтрак">Завтрак</option><option value="Обед">Обед</option><option value="Ужин">Ужин</option><option value="Перекус">Перекус</option></select></label>
+            <button type="submit" class="btn">Добавить</button>
+          </form>
+        </section>
+
+        <section class="panel reveal">
+          <h2>Прием БАДов</h2>
+          <form id="supplement-form" class="grid-form">
+            <label>БАД<select id="supplement-select" required></select></label>
+            <label>Капсул/порций<input id="supplement-servings" type="number" min="1" max="10" value="1" required /></label>
+            <label>Время<select id="supplement-time"><option value="Утро">Утро</option><option value="День">День</option><option value="Вечер">Вечер</option></select></label>
+            <button type="submit" class="btn">Добавить</button>
+          </form>
+          <p class="muted">Одна капсула может содержать несколько витаминов и минералов.</p>
+          <ul id="supplement-list" class="list mini"></ul>
+        </section>
+
+        <section class="panel reveal">
+          <h2>Сводка дня</h2>
+          <div id="summary" class="summary-grid"></div>
+          <div class="status-chip" id="twin-status">Статус цифрового двойника: расчет...</div>
+        </section>
+
+        <section class="panel reveal">
+          <h2>Диаграммы</h2>
+          <div class="charts-grid">
+            <article class="chart-card">
+              <h3>Макрораспределение</h3>
+              <canvas id="macro-chart" width="360" height="220"></canvas>
+            </article>
+            <article class="chart-card">
+              <h3>Нагрузка 7 дней</h3>
+              <canvas id="training-chart" width="360" height="220"></canvas>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel reveal">
+          <h2>Сигналы цифрового двойника</h2>
+          <p class="muted">Нереалистичные комбинации питания, нагрузки и сна отмечаются автоматически.</p>
+          <ul id="twin-alerts" class="list mini"></ul>
+        </section>
+
+        <section class="panel reveal">
+          <div class="panel-head">
+            <h2>Дневник питания</h2>
+            <button id="clear-btn" class="btn ghost" type="button">Очистить</button>
+          </div>
+          <ul id="entries-list" class="list"></ul>
+        </section>
+
+        <section class="panel reveal">
+          <h2>Витамины</h2>
+          <div id="vitamins-list" class="nutrients"></div>
+        </section>
+
+        <section class="panel reveal">
+          <h2>Минералы</h2>
+          <div id="minerals-list" class="nutrients"></div>
+        </section>
+
+        <section class="panel reveal">
+          <h2>Аминокислоты</h2>
+          <div id="amino-list" class="nutrients"></div>
+        </section>
+
+        <section class="panel reveal">
+          <h2>Тренировочный цикл</h2>
+          <form id="cycle-form" class="grid-form">
+            <label>Старт<input id="cycle-start-date" type="date" required /></label>
+            <label>Микроциклы<input id="cycle-microcycles" type="number" min="4" max="24" value="12" required /></label>
+            <label>Трен./нед<input id="cycle-sessions-week" type="number" min="2" max="7" value="4" required /></label>
+            <label>Базовый ПМ<input id="cycle-base-1rm" type="number" min="20" max="500" value="120" required /></label>
+            <label>Начальный КПШ<input id="cycle-base-kpsh" type="number" min="20" max="300" value="90" required /></label>
+            <label>Волна<select id="cycle-wave-direction"><option value="up">Восходящая</option><option value="up-down">Восх/нисх</option></select></label>
+            <button type="submit" class="btn">Построить</button>
+          </form>
+          <p id="cycle-status" class="muted"></p>
+          <ul id="cycle-preview-list" class="list mini"></ul>
+
+          <form id="workout-form" class="grid-form">
+            <label>Дата<input id="workout-date" type="date" required /></label>
+            <label>Упражнение<input id="workout-type" type="text" placeholder="Присед / жим / тяга" required /></label>
+            <label>Подходы<input id="workout-sets" type="number" min="1" max="20" value="5" required /></label>
+            <label>Повторы<input id="workout-reps" type="number" min="1" max="20" value="5" required /></label>
+            <label>Вес (кг)<input id="workout-weight" type="number" min="1" max="600" value="60" required /></label>
+            <label>RPE<input id="workout-rpe" type="number" min="4" max="10" step="0.5" value="7" required /></label>
+            <label>Тип<select id="workout-intensity"><option value="Высокообъемная">Высокообъемная</option><option value="Средняя">Средняя</option><option value="Высокоинтенсивная">Высокоинтенсивная</option></select></label>
+            <button type="submit" class="btn">Записать</button>
+          </form>
+          <ul id="workout-list" class="list mini"></ul>
+        </section>
+
+        <section class="panel reveal">
+          <h2>Сон</h2>
+          <form id="sleep-form" class="grid-form">
+            <label>Дата<input id="sleep-date" type="date" required /></label>
+            <label>Часы<input id="sleep-hours" type="number" min="0" max="30" step="0.1" value="7.5" required /></label>
+            <label>Качество (1-5)<input id="sleep-quality" type="number" min="1" max="5" value="3" required /></label>
+            <button type="submit" class="btn">Добавить</button>
+          </form>
+          <ul id="sleep-list" class="list mini"></ul>
+        </section>
+
+        <section class="panel reveal">
+          <h2>Персональные рекомендации</h2>
+          <div id="recommendations" class="recommendations"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="food-db.js"></script>
+    <script src="supplement-db.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
